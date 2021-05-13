@@ -12,7 +12,7 @@ else:
     import xml.etree.ElementTree as ET
 
 
-KON_CLASSES = ('Azusa', 'Yui', 'Mio', 'Ritsu', 'Mugi')
+KON_CLASSES = ['Azusa', 'Yui', 'Mio', 'Ritsu', 'Mugi']
 KON_ROOT = "/home/k545/object-detection/dataset/KonFace/"
 
 class KONAnnotationTransform(object):
