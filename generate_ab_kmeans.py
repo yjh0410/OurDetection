@@ -13,8 +13,11 @@ def parse_args():
                         help='number of anchor box.')
     parser.add_argument('-size', '--input_size', default=416, type=int,
                         help='input size.')
+    parser.add_argument('--scale', action='store_true', default=False,
+                        help='divide the sizes of anchor boxes by 32 .')
     return parser.parse_args()
                     
+args = parse_args()
 
 # 边界框的基础类
 class Box():
@@ -163,15 +166,19 @@ def anchor_box_kmeans(total_gt_boxes, n_anchors, loss_convergence, iters, plus=T
     
     print("k-means 聚类结果 : ") 
     for centroid in centroids:
-        # 注意，这里我们已经将anchor box的尺寸映射到stride=32的尺度上去了
-        print("w, h: ", round(centroid.w / 32., 2), round(centroid.h / 32., 2), 
-              "area: ", round(centroid.w / 32., 2) * round(centroid.h / 32., 2))
+        if args.scale:
+            # 注意，这里我们已经将anchor box的尺寸映射到stride=32的尺度上去了
+            print("w, h: ", round(centroid.w / 32., 2), round(centroid.h / 32., 2), 
+                "area: ", round(centroid.w / 32., 2) * round(centroid.h / 32., 2))
+        else:
+            # 不除以32
+            print("w, h: ", round(centroid.w, 2), round(centroid.h, 2), 
+                "area: ", round(centroid.w, 2) * round(centroid.h, 2))
     
     return centroids
 
 
 if __name__ == "__main__":
-    args = parse_args()
 
     n_anchors = args.num_anchorbox
     size = args.input_size
