@@ -118,8 +118,10 @@ def train():
                              display=True
                              )
 
-    print('Training model on:', train_dataset.name)
+    print("----------------------------------------------------------")
+    print('Training on:', train_dataset.name)
     print('The dataset size:', len(train_dataset))
+    print('Initial learning rate: ', args.lr)
     print("----------------------------------------------------------")
 
     # build model
@@ -166,12 +168,6 @@ def train():
                           momentum=args.momentum,
                           weight_decay=args.weight_decay
                           )
-
-    print("----------------------------------------------------------")
-    print('Training on:', train_dataset.name)
-    print('The dataset size:', len(train_dataset))
-    print('Initial learning rate: ', args.lr)
-    print("----------------------------------------------------------")
 
     epoch_size = len(train_dataset) // args.batch_size
     max_epoch = cfg['max_epoch']
