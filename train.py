@@ -93,7 +93,7 @@ def train():
     # config file
     cfg = train_cfg
 
-    # dataset and evaluator
+    # 构建数据集
     data_dir = KON_ROOT
     num_classes = 5
     train_dataset = KONDetection(root=data_dir, 
@@ -111,6 +111,7 @@ def train():
                                base_transform=None
                                 )
 
+    # 构建evaluator，用于训练时测试模型性能
     evaluator = MAPEvaluator(device=device,
                              dataset=val_dataset,
                              classname=KON_CLASSES,
@@ -124,7 +125,7 @@ def train():
     print('Initial learning rate: ', args.lr)
     print("----------------------------------------------------------")
 
-    # build model
+    # 构建模型
     if args.version == 'yolov2':
         from models.yolov2 import YOLOv2
         pretrained_path = 'weights/pretrained/yolov2/yolov2_29.0_48.8.pth'
@@ -144,7 +145,7 @@ def train():
     model = net
     model.to(device)
 
-    # load pretrained model
+    # 加载COCO数据集上的预训练模型
     if args.pretrained:
         print('use pretrained model: %s' % (pretrained_path))
         model.load_state_dict(torch.load(pretrained_path, map_location=device), strict=False)
