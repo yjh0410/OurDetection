@@ -34,7 +34,7 @@ def voc_test(model, val_dataset, device):
                              dataset=val_dataset,
                              classname=KON_CLASSES,
                              name='kon',
-                             display=False
+                             display=True
                              )
 
     # evaluation

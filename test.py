@@ -26,8 +26,6 @@ parser.add_argument('--cuda', action='store_true', default=False,
 
 args = parser.parse_args()
 
-print("----------------------------------------Face Detection--------------------------------------------")
-
 
 def test_net(net, device, testset, transform, thresh, class_names):
     num_images = len(testset)
@@ -65,7 +63,7 @@ def test_net(net, device, testset, transform, thresh, class_names):
                 cv2.putText(img, mess, (int(xmin), int(ymin)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1)
 
         cv2.imshow('face detection', img)
-        # cv2.imwrite(save_path + str(index) + '.jpg', img)
+        cv2.imwrite(save_path + str(index) + '.jpg', img)
         cv2.waitKey(0)
 
 
